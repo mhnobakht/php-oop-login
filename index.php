@@ -1,3 +1,10 @@
+<?php
+require "vendor/autoload.php";
+
+use Academy01\Csrftoken\CsrfToken;
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,10 +41,13 @@
 			</div>
 			<div class="register-show">
 				<h2>REGISTER</h2>
+				<form action="" class="register">
+					<input type="hidden" name="csrf_token" value="<?php echo CsrfToken::generate(); ?>">
 				<input type="text" placeholder="Email">
 				<input type="password" placeholder="Password">
 				<input type="password" placeholder="Confirm Password">
 				<input type="button" value="Register">
+				</form>
 			</div>
 		</div>
 	</div>

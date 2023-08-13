@@ -1,0 +1,6 @@
+{
+    "minimum-stability": "dev",
+    "require": {
+        "academy01/csrftoken": "dev-main"
+    }
+}
