@@ -26,10 +26,3 @@ class User extends Database {
 
 $userTable = new User();
 
-$input1 = "<script>alert(majid)</script>";
-
-$input2 = ['<script>alert(majid)</script>', 'ali', 'parvane', 'morvarid'];
-
-$user = $userTable->test($input2);
-
-var_dump($user);

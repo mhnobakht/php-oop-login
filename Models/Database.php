@@ -4,15 +4,18 @@ namespace Models;
 
 class Database {
 
+    use SanitizerTrait;
+
     private $host = 'localhost';
     private $username = 'root';
     private $password = '';
     private $database = 'ooplogin_dbs';
+    private $port     = 3307;
     private $connection;
 
     public function __construct() {
 
-        $this->connection = new \mysqli($this->host, $this->username, $this->password, $this->database);
+        $this->connection = new \mysqli($this->host, $this->username, $this->password, $this->database, $this->port);
 
         if ($this->connection->connect_error) {
 
