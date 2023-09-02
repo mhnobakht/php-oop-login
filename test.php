@@ -2,27 +2,15 @@
 
 require_once 'autoload.php';
 
-use Models\Database;
+use Models\Token;
 
-class User extends Database {
-
-    use Models\SanitizerTrait;
-
-    public function get($id) {
-        $sql = "SELECT * FROM users WHERE id= ?";
-        $stmt = $this->executeStatement($sql, $id);
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
-    }
-
-    public function test($input) {
-
-        return self::sanitizeInput($input);
-
-    }
-
-}
+$user_id = 1;
+$type = 'email';
+$userToken = "e40a474b717e09367d72da5a77a5f5574bcf50f6b1de1ca7501320bd83c28a1b";
 
 
-$userTable = new User();
+$obj = new Token();
 
+$token = $obj->compareToken($user_id, $type, $userToken);
+
+var_dump($token);
