@@ -1,8 +1,20 @@
 <?php
 require "vendor/autoload.php";
+require "autoload.php";
 
 use Academy01\Csrftoken\CsrfToken;
+use Academy01\Semej\Semej;
+use Models\AuthUser;
 
+// REGISTER FORM
+
+if(isset($_POST['register_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+	$csrf_token = $_POST['csrf_token'];
+	$data = $_POST['frm'];
+
+	$authUser = new AuthUser();
+	$authUser->register($csrf_token, $data);
+}
 
 ?>
 <!DOCTYPE html>
@@ -41,12 +53,12 @@ use Academy01\Csrftoken\CsrfToken;
 			</div>
 			<div class="register-show">
 				<h2>REGISTER</h2>
-				<form action="" class="register">
+				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="register" method="post">
 					<input type="hidden" name="csrf_token" value="<?php echo CsrfToken::generate(); ?>">
-				<input type="text" placeholder="Email">
-				<input type="password" placeholder="Password">
-				<input type="password" placeholder="Confirm Password">
-				<input type="button" value="Register">
+				<input name="frm[email]" type="text" placeholder="Email">
+				<input name="frm[password]" type="password" placeholder="Password">
+				<input name="frm[confirm_password]" type="password" placeholder="Confirm Password">
+				<input name="register_btn" type="submit" value="Register">
 				</form>
 			</div>
 		</div>
@@ -54,6 +66,9 @@ use Academy01\Csrftoken\CsrfToken;
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/script.js"></script>
+
+	<?php Semej::alert(); ?>
 </body>
 </html>
