@@ -53,7 +53,6 @@ class Token extends Database{
 
         $lastValidToken = $this->getToken($user_id, $type);
 
-
         if($lastValidToken === null) {
             return false;
         }
