@@ -2,6 +2,7 @@
 
 namespace Models;
 
+use Academy01\Csrftoken\CsrfToken;
 use Academy01\Semej\Semej;
 
 class AuthUser extends Database {
@@ -107,6 +108,20 @@ class AuthUser extends Database {
         $result = $mail->send($email, $subject, $message);
 
         return $result;
+    }
+
+    // login user
+    public function login($csrf_token, $formData) {
+
+        // sanitize inputs
+        $csrf_token = $this->sanitizeInput($csrf_token);
+        $formData = $this->sanitizeInput($formData);
+
+        // check csrf token
+        $check_csrf_token = CsrfToken::validate($csrf_token);
+
+        var_dump($check_csrf_token);die;
+
     }
 
 }

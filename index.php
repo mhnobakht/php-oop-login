@@ -6,6 +6,10 @@ use Academy01\Csrftoken\CsrfToken;
 use Academy01\Semej\Semej;
 use Models\AuthUser;
 
+if($_SERVER['REQUEST_METHOD'] === 'GET') {
+	$generated_csrf_token = CsrfToken::generate();
+}
+
 // REGISTER FORM
 
 if(isset($_POST['register_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,6 +18,16 @@ if(isset($_POST['register_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$authUser = new AuthUser();
 	$authUser->register($csrf_token, $data);
+}
+
+// LOGIN FORM
+
+if(isset($_POST['login_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+	$csrf_token = $_POST['csrf_token'];
+	$data = $_POST['frm'];
+
+	$authUser = new AuthUser();
+	$authUser->login($csrf_token, $data);
 }
 
 ?>
@@ -45,16 +59,19 @@ if(isset($_POST['register_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 							
 		<div class="white-panel">
 			<div class="login-show">
+				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 				<h2>LOGIN</h2>
-				<input type="text" placeholder="Email">
-				<input type="password" placeholder="Password">
-				<input type="button" value="Login">
+				<input type="hidden" name="csrf_token" value="<?php echo $generated_csrf_token; ?>">
+				<input name="frm[email]" type="text" placeholder="Email">
+				<input name="frm[password]" type="password" placeholder="Password">
+				<input type="submit" value="Login" name="login_btn">
 				<a href="">Forgot password?</a>
+				</form>
 			</div>
 			<div class="register-show">
 				<h2>REGISTER</h2>
 				<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="register" method="post">
-					<input type="hidden" name="csrf_token" value="<?php echo CsrfToken::generate(); ?>">
+					<input type="hidden" name="csrf_token" value="<?php echo $generated_csrf_token; ?>">
 				<input name="frm[email]" type="text" placeholder="Email">
 				<input name="frm[password]" type="password" placeholder="Password">
 				<input name="frm[confirm_password]" type="password" placeholder="Confirm Password">

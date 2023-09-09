@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
-    $('.register-info-box').fadeOut();
-    $('.register-show').addClass('show-log-panel');
+    $('.login-info-box').fadeOut();
+    $('.login-show').addClass('show-log-panel');
 });
 
 
