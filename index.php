@@ -6,10 +6,6 @@ use Academy01\Csrftoken\CsrfToken;
 use Academy01\Semej\Semej;
 use Models\AuthUser;
 
-if($_SERVER['REQUEST_METHOD'] === 'GET') {
-	$generated_csrf_token = CsrfToken::generate();
-}
-
 // REGISTER FORM
 
 if(isset($_POST['register_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -29,6 +25,10 @@ if(isset($_POST['login_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 	$authUser = new AuthUser();
 	$authUser->login($csrf_token, $data);
 }
+
+
+// generate csrf token
+$generated_csrf_token = CsrfToken::generate();
 
 ?>
 <!DOCTYPE html>
