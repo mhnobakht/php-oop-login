@@ -2,6 +2,7 @@
 
 namespace Models;
 
+use Academy01\AuthToken\AuthToken;
 use Academy01\Csrftoken\CsrfToken;
 use Academy01\Semej\Semej;
 
@@ -170,8 +171,13 @@ class AuthUser extends Database {
         }
 
 
-        echo 'login';
+        // login verified
+
+        $_SESSION['username'] = $result['name'];
         
+        AuthToken::generate();
+
+        header("Location: dashboard/index.php");die;
 
     }
 
