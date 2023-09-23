@@ -89,4 +89,10 @@ class User extends Database{
         return $result;
     }
 
+
+    // update password
+    public function updatePassword($email, $token) {
+        
+    }
+
 }
