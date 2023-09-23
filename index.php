@@ -65,7 +65,7 @@ $generated_csrf_token = CsrfToken::generate();
 				<input name="frm[email]" type="text" placeholder="Email">
 				<input name="frm[password]" type="password" placeholder="Password">
 				<input type="submit" value="Login" name="login_btn">
-				<a href="">Forgot password?</a>
+				<a href="forgotPassword.php">Forgot password?</a>
 				</form>
 			</div>
 			<div class="register-show">
