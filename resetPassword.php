@@ -37,6 +37,16 @@ if($token != $lastValidToken) {
     header('Location: index.php');die;
 }
 
+// if token and email are valid
+if(isset($_POST['btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $passwords = $_POST['frm'];
+
+    if($passwords['password'] !== $passwords['confirm_password']) {
+        header('Location: index.php');die;
+    }
+
+    $_user->updatePassword($email, $token, $passwords);
+}
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +63,7 @@ if($token != $lastValidToken) {
     <div class="login-reg-panel justify-content-center align-items-center row">
         <fieldset>
             <legend>Update password for: <?php echo htmlspecialchars($email); ?></legend>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])."?token=$token&email=$email"; ?>" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo CsrfToken::generate(); ?>">
                 <div class="form-group">
                     <input type="password" name="frm[password]" id="" class="form-control" placeholder="password">
@@ -72,6 +82,5 @@ if($token != $lastValidToken) {
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/script.js"></script>
-    <?php  Semej::alert(); ?>
 </body>
 </html>
